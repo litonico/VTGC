@@ -3,6 +3,7 @@
 
 VM* newVM() {
     VM* vm = malloc(sizeof(VM));
+    vm->firstObject = NULL;
     vm->stackSize = 0;
     return vm
 }
@@ -20,6 +21,11 @@ Object* pop(VM* vm) {
 Object* newObject(VM* vm, ObjectType type) {
     Object* object = malloc(sizeof(Object));
     object->type type;
+    object->marked = 0;
+
+    object->next = vm->firstObject;
+    vm->firstObject = object;
+
     return object;
 }
 

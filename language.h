@@ -4,6 +4,10 @@ typedef enum {
 } ObjectType;
 
 typedef struct sObject {
+    struct sObject* next;
+
+    unsigned char marked;
+
     ObjectType type;
 
     union {
