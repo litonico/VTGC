@@ -5,6 +5,10 @@ VM* newVM() {
     VM* vm = malloc(sizeof(VM));
     vm->firstObject = NULL;
     vm->stackSize = 0;
+
+    vm->numObjects = 0;
+    vm->maxObjects = INITIAL_GC_THRESHOLD;
+
     return vm
 }
 
@@ -19,12 +23,17 @@ Object* pop(VM* vm) {
 }
 
 Object* newObject(VM* vm, ObjectType type) {
+    if (vm->numObjects == vm->maxObjects) {
+        gc(vm);
+    }
+
     Object* object = malloc(sizeof(Object));
     object->type type;
     object->marked = 0;
 
     object->next = vm->firstObject;
     vm->firstObject = object;
+    vm->numObjects++;
 
     return object;
 }

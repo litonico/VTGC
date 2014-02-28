@@ -1,3 +1,6 @@
+#ifndef language_h
+#define language_h
+
 typedef enum {
     OBJ_INT,
     OBJ_PAIR
@@ -22,3 +25,4 @@ typedef struct sObject {
     }
 } Object; 
 
+#endif
